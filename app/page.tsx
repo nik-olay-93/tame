@@ -1,4 +1,10 @@
+import UserTest from "../components/UserTest";
+
 export default function Home() {
-  return <div className="bg-red-500">ku</div>;
+  return (
+    <div>
+      <UserTest />
+    </div>
+  );
 }
 
