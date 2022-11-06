@@ -11,6 +11,16 @@ const routes = [
     path: "/",
   },
   {
+    title: "Dashboard",
+    icon: "fluent:data-treemap-20-regular",
+    path: "/dashboard",
+  },
+  {
+    title: "Messages",
+    icon: "fluent:comment-20-regular",
+    path: "/messages",
+  },
+  {
     title: "Profile",
     icon: "ep:user",
     path: "/profile",
@@ -27,7 +37,7 @@ export default function BottomMenu() {
           href={r.path}
           key={i}
           className={`flex flex-col items-center transition-colors ease-in active:bg-[rgba(255,255,255,0.05)] rounded-full px-1 ${
-            r.path === pathname ? "text-accent" : ""
+            r.path === pathname ? "text-accent" : "text-gray-400"
           }`}
         >
           <CustomIcon icon={r.icon} fontSize="30px" />
