@@ -1,8 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { userAgent } from "next/server";
-import TaskCard from "../components/tasks/TaskCard";
 import TaskList from "../components/tasks/TaskList";
-import CustomIcon from "../components/ui/CustomIcon";
 import { getServerSession } from "../lib/serverSession";
 
 export const revalidate = 60;
