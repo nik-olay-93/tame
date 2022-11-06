@@ -4,13 +4,12 @@ import { headers } from "next/headers";
 
 import { getSession } from "../lib/session";
 import ClientSessionProvider from "../contexts/SessionProvider";
+import AppFooter from "../components/ui/AppFooter";
 
 export default async function RootLayout({
   children,
-  props,
 }: {
   children: React.ReactNode;
-  props?: any;
 }) {
   const session = await getSession(headers().get("cookie") ?? "");
 
@@ -19,7 +18,10 @@ export default async function RootLayout({
       <head />
       <body>
         <ClientSessionProvider session={session}>
-          {children}
+          <div className="overflow-y-scroll h-full">{children}</div>
+          <div className="fixed bottom-0 w-full">
+            <AppFooter />
+          </div>
         </ClientSessionProvider>
       </body>
     </html>
