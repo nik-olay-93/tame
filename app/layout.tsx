@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 
 import { getSession } from "../lib/session";
 import ClientSessionProvider from "../contexts/SessionProvider";
-import AppFooter from "../components/ui/AppFooter";
+import BottomMenu from "../components/ui/AppFooter";
 
 export default async function RootLayout({
   children,
@@ -20,7 +20,7 @@ export default async function RootLayout({
         <ClientSessionProvider session={session}>
           <div className="overflow-y-scroll h-full">{children}</div>
           <div className="fixed bottom-0 w-full">
-            <AppFooter />
+            <BottomMenu />
           </div>
         </ClientSessionProvider>
       </body>
