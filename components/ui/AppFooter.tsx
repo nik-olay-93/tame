@@ -23,22 +23,26 @@ const routes = [
   },
   {
     title: "Profile",
-    icon: "ep:user",
+    icon: "fluent:person-20-regular",
     path: "/profile",
   },
 ];
 
-export default function BottomMenu() {
+export default function BottomMenu({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex justify-around px-4 py-1 bg-primary-light dark:bg-[#424242]">
+    <nav
+      className={`flex justify-around px-4 py-1 bg-primary-light dark:bg-[#424242] ${className}`}
+    >
       {routes.map((r, i) => (
         <Link
           href={r.path}
           key={i}
           className={`flex flex-col items-center px-1 rounded-md ${
-            r.path === pathname ? "text-accent" : "text-gray-400"
+            r.path === pathname
+              ? "text-accent-light dark:text-accent-dark"
+              : "text-gray-400"
           } ${styles.ripple} 
           `}
         >
