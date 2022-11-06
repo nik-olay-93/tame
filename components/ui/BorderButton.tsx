@@ -15,7 +15,7 @@ export default function BorderButton({
 }) {
   return (
     <button
-      className={`border border-gray-400 rounded-md px-2 py-1 flex flex-row gap-1 items-center ${styles.ripple} ${className}`}
+      className={`border rounded-md px-2 py-1 flex flex-row gap-1 items-center ${styles.ripple} ${className}`}
       onClick={onClick}
     >
       {icon && <CustomIcon {...icon} />}

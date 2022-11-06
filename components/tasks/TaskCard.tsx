@@ -87,7 +87,7 @@ export default function TaskCard({
                   icon: "fluent:checkmark-20-regular",
                   fontSize: "20px",
                 }}
-                className="text-lg text-accent-light dark:text-accent-dark ml-auto flex-1"
+                className="text-lg border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark ml-auto flex-1"
               >
                 <span className="text-center flex-1">Complete</span>
               </BorderButton>
@@ -99,7 +99,7 @@ export default function TaskCard({
                 icon={{
                   icon: "fluent:edit-20-regular",
                 }}
-                className="text-sm text-gray-400"
+                className="text-sm text-gray-400 border-gray-400"
               >
                 Edit
               </BorderButton>
@@ -107,7 +107,7 @@ export default function TaskCard({
                 icon={{
                   icon: "fluent:delete-20-regular",
                 }}
-                className="text-sm text-gray-400"
+                className="text-sm text-gray-400 border-gray-400"
               >
                 Delete
               </BorderButton>
