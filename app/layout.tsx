@@ -18,7 +18,7 @@ export default async function RootLayout({
       <head />
       <body>
         <ClientSessionProvider session={session}>
-          <div className="overflow-y-scroll h-full">{children}</div>
+          <div className="overflow-y-scroll h-full pb-[150px]">{children}</div>
           <div className="fixed bottom-0 w-full">
             <BottomMenu />
           </div>
@@ -27,4 +27,3 @@ export default async function RootLayout({
     </html>
   );
 }
-

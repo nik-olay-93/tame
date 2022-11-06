@@ -1,3 +1,9 @@
+import UserTest from "../../components/UserTest";
+
 export default function ProfilePage() {
-  return <div>Profile Page</div>;
+  return (
+    <div>
+      <UserTest />
+    </div>
+  );
 }
