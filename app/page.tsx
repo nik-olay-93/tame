@@ -1,5 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { userAgent } from "next/server";
 import TaskCard from "../components/tasks/TaskCard";
+import TaskList from "../components/tasks/TaskList";
+import CustomIcon from "../components/ui/CustomIcon";
 import { getServerSession } from "../lib/serverSession";
 
 export const revalidate = 60;
@@ -55,15 +58,17 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1>Assigned tasks</h1>
-      {data.assigned.map((task, i) => (
-        <TaskCard key={i} task={task} userId={data.user.id} className="mx-8" />
-      ))}
-      <h1>Issued tasks</h1>
-      {data.issued.map((task, i) => (
-        <TaskCard key={i} task={task} userId={data.user.id} className="mx-8" />
-      ))}
+    <div className="flex flex-col gap-4 mt-4">
+      <TaskList
+        header="Assigned tasks"
+        tasks={data.assigned}
+        userId={data.user.id}
+      />
+      <TaskList
+        header="Issued tasks"
+        tasks={data.issued}
+        userId={data.user.id}
+      />
     </div>
   );
 }

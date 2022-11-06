@@ -1,5 +1,6 @@
 import { Project, Tag, Task, User } from "@prisma/client";
 import Image from "next/image";
+import BorderButton from "../ui/BorderButton";
 
 export default function TaskCard({
   task,
@@ -70,22 +71,50 @@ export default function TaskCard({
           ))}
         </div>
       )}
-      {
-        <div className="border-t mx-2 border-accent-light dark:border-accent-dark">
-          <div className="flex flex-row flex-wrap gap-2 p-2">
-            <button className="text-sm text-gray-500">Comment</button>
+      <div className="border-t mx-2 border-accent-light dark:border-accent-dark">
+        <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-row gap-2">
+            <BorderButton
+              icon={{
+                icon: "fluent:comment-multiple-20-regular",
+              }}
+            >
+              Comment
+            </BorderButton>
             {(task.assignee?.id === userId || task.issuer.id === userId) && (
-              <>
-                <button className="text-sm text-gray-500">Edit</button>
-                <button className="text-sm text-gray-500">Delete</button>
-                <button className="text-accent-light dark:text-accent-dark ml-auto">
-                  Mark as Complete
-                </button>
-              </>
+              <BorderButton
+                icon={{
+                  icon: "fluent:checkmark-20-regular",
+                  fontSize: "20px",
+                }}
+                className="text-lg text-accent-light dark:text-accent-dark ml-auto flex-1"
+              >
+                <span className="text-center flex-1">Complete</span>
+              </BorderButton>
             )}
           </div>
+          {task.issuer.id === userId && (
+            <div className="flex flex-row gap-2">
+              <BorderButton
+                icon={{
+                  icon: "fluent:edit-20-regular",
+                }}
+                className="text-sm text-gray-400"
+              >
+                Edit
+              </BorderButton>
+              <BorderButton
+                icon={{
+                  icon: "fluent:delete-20-regular",
+                }}
+                className="text-sm text-gray-400"
+              >
+                Delete
+              </BorderButton>
+            </div>
+          )}
         </div>
-      }
+      </div>
     </div>
   );
 }
