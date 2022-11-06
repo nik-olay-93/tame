@@ -1,3 +1,3 @@
 export default function AppFooter() {
-  return <div>hi from footer</div>;
+  return <div className=" dark:bg-[#222222]">hi from footer</div>;
 }

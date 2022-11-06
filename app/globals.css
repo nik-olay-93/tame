@@ -7,3 +7,9 @@ body {
   height: 100vh;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #141414;
+    color: #fff;
+  }
+}

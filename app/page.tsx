@@ -1,9 +1,9 @@
-export default function Home() {
+import UserTest from "../components/UserTest";
+
+export default async function Home() {
   return (
     <div>
-      {new Array(100).fill(0).map((_, i) => (
-        <div key={i}>hi from home</div>
-      ))}
+      <UserTest />
     </div>
   );
 }
