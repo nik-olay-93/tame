@@ -33,7 +33,7 @@ export default function BottomMenu({ className }: { className?: string }) {
 
   return (
     <nav
-      className={`flex justify-around px-4 py-1 bg-primary-light dark:bg-[#424242] ${className}`}
+      className={`z-50 flex justify-around px-4 py-1 bg-primary-light dark:bg-[#424242] ${className}`}
     >
       {routes.map((r, i) => (
         <Link
@@ -43,8 +43,7 @@ export default function BottomMenu({ className }: { className?: string }) {
             r.path === pathname
               ? "text-accent-light dark:text-accent-dark"
               : "text-gray-400"
-          } ${styles.ripple} 
-          `}
+          } ${styles.ripple}`}
         >
           <CustomIcon icon={r.icon} fontSize="30px" />
           <span className="text-sx">{r.title}</span>
