@@ -1,6 +1,8 @@
 import { Project, Tag, Task, User } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import BorderButton from "../ui/BorderButton";
+import InputToggle from "../ui/forms/InputToggle";
 
 export default function TaskCard({
   task,
@@ -16,12 +18,36 @@ export default function TaskCard({
   userId?: string;
   className?: string;
 }) {
+  const router = useRouter();
+
   return (
     <div
       className={`flex flex-col bg-primary-light dark:bg-primary-dark rounded-md ${className}`}
     >
       <div className="px-4 py-2 flex flex-col">
-        <span className="text-xl font-semibold">{task.name}</span>
+        <span className="text-xl font-semibold">
+          <InputToggle
+            value={task.name}
+            onDone={(v) => {
+              fetch(`/api/task/${task.id}/rename`, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  name: v,
+                }),
+              })
+                .then(() => {
+                  router.refresh();
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }}
+            type={"text"}
+          />
+        </span>
         <span className="text-gray-400">{task.project.name}</span>
       </div>
       <div className="mx-2 p-2 border-y border-accent-light dark:border-accent-dark flex flex-col gap-2">
