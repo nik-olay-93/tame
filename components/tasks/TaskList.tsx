@@ -22,7 +22,7 @@ export default function TaskList({
 
   return (
     <div
-      className="flex flex-col gap-4 overflow-hidden"
+      className={`flex flex-col gap-4 overflow-hidden ${className}`}
       ref={parent as RefObject<HTMLDivElement>}
     >
       <div
