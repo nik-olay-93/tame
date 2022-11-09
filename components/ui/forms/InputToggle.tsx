@@ -35,6 +35,7 @@ export default function InputToggle({
 
   useClickOutside(ref, () => {
     setPlainMode(true);
+    if (value === current) return;
     if (current) onDone?.(current);
     setCurrent(value);
   });

@@ -104,13 +104,13 @@ export default function TaskCard({
       )}
       <div className="border-t mx-2 border-accent-light dark:border-accent-dark">
         <div className="flex flex-col gap-2 p-2">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 @container">
             <BorderButton
               icon={{
                 icon: "fluent:comment-multiple-20-regular",
               }}
             >
-              Comment
+              <span className="hidden @xs:block">Comment</span>
             </BorderButton>
             {(task.assignee?.id === userId || task.issuer.id === userId) && (
               <BorderButton
