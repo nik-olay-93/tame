@@ -18,7 +18,7 @@ export default function TaskList({
 }) {
   const [open, setOpen] = useState(true);
 
-  const parent = useAutoAnimate({});
+  const parent = useAutoAnimate({ duration: 200, easing: "ease-out" });
 
   return (
     <div
