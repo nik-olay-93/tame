@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
 import TaskList from "../components/tasks/TaskList";
+import client from "../lib/prismadb";
 import { getServerSession } from "../lib/serverSession";
 
 export const revalidate = 60;
-
-const prisma = new PrismaClient();
 
 async function getData() {
   const session = await getServerSession();
@@ -12,7 +10,7 @@ async function getData() {
     return null;
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await client.user.findUnique({
     where: {
       email: session.body.user.email,
     },

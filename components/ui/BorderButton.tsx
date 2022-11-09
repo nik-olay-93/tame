@@ -9,7 +9,7 @@ export default function BorderButton({
   icon,
   type = "button",
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   onClick?: () => void;
   icon?: IconProps;

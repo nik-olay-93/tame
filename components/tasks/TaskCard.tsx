@@ -92,27 +92,16 @@ export default function TaskCard({
                 <span className="text-center flex-1">Complete</span>
               </BorderButton>
             )}
-          </div>
-          {task.issuer.id === userId && (
-            <div className="flex flex-row gap-2">
-              <BorderButton
-                icon={{
-                  icon: "fluent:edit-20-regular",
-                }}
-                className="text-sm text-gray-400 border-gray-400"
-              >
-                Edit
-              </BorderButton>
+            {task.issuer.id === userId && (
               <BorderButton
                 icon={{
                   icon: "fluent:delete-20-regular",
+                  fontSize: "20px",
                 }}
-                className="text-sm text-gray-400 border-gray-400"
-              >
-                Delete
-              </BorderButton>
-            </div>
-          )}
+                className="text-sm text-red-500 border-red-500"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
