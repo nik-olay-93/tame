@@ -15,7 +15,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.18.9":
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.9":
   version: 7.20.1
   resolution: "@babel/runtime@npm:7.20.1"
   dependencies:
@@ -38,6 +38,21 @@ __metadata:
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
   checksum: f03e9d6727efd3e0719da2051ea80c0c73d20e28c171121527dbb868cd34232ca9c1d0525a66e517a404afea26624b1e47895b6a92474678418c2f50c9566694
+  languageName: node
+  linkType: hard
+
+"@formkit/auto-animate@npm:^1.0.0-beta.3":
+  version: 1.0.0-pre-alpha.3
+  resolution: "@formkit/auto-animate@npm:1.0.0-pre-alpha.3"
+  peerDependencies:
+    react: ^16.8.0
+    vue: ^3.0.0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    vue:
+      optional: true
+  checksum: d0d5fa8a32c4614d33ffba3d56f184a23161d82139e090f39778457673d2450b353a46b59d7468089850fcfbc3b0897371ae1888b713349caf1bf760687369ad
   languageName: node
   linkType: hard
 
@@ -862,6 +877,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cl_list@workspace:."
   dependencies:
+    "@formkit/auto-animate": ^1.0.0-beta.3
     "@iconify/react": ^4.0.0
     "@next-auth/prisma-adapter": ^1.0.5
     "@prisma/client": ^4.6.0
@@ -871,6 +887,8 @@ __metadata:
     autoprefixer: ^10.4.13
     eslint: 8.27.0
     eslint-config-next: 13.0.2
+    i18next: ^22.0.4
+    i18next-fs-backend: ^2.0.0
     next: ^13.0.3-canary.2
     next-auth: ^4.16.4
     postcss: ^8.4.18
@@ -1935,6 +1953,22 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"i18next-fs-backend@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "i18next-fs-backend@npm:2.0.0"
+  checksum: a452aaf6a3d5fb1e9b3d8f58e44a6be2cc9de89239c52deb628b49732a3ce0982e76aface55b2b5005a86914ab88ac02dd13408f8eb85505f5d41cbeb8969122
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^22.0.4":
+  version: 22.0.4
+  resolution: "i18next@npm:22.0.4"
+  dependencies:
+    "@babel/runtime": ^7.17.2
+  checksum: aa49e6e48583833ee673c0dd9568081a5e15fde9549aa3e47a99ad91d3fdb7469f8a315864fc45ec466b1e60caa00d5fc8371e47840068048b4ab79a69dc2b19
   languageName: node
   linkType: hard
 

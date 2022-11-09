@@ -1,9 +1,9 @@
 import { Project, Tag, Task, User } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { PlainObject } from "../../utils/plainTypes";
-import BorderButton from "../ui/BorderButton";
-import InputToggle from "../ui/forms/InputToggle";
+import { PlainObject } from "utils/plainTypes";
+import BorderButton from "components/ui/BorderButton";
+import InputToggle from "components/ui/forms/InputToggle";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;

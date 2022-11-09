@@ -1,9 +1,9 @@
 import "./globals.css";
 
 import { headers } from "next/headers";
-import BottomMenu from "../components/ui/AppFooter";
-import ClientSessionProvider from "../contexts/SessionProvider";
-import { getSession } from "../lib/session";
+import BottomMenu from "components/ui/AppFooter";
+import ClientSessionProvider from "contexts/SessionProvider";
+import { getSession } from "lib/session";
 
 export default async function RootLayout({
   children,

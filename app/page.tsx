@@ -1,7 +1,7 @@
-import TaskList from "../components/tasks/TaskList";
-import client from "../lib/prismadb";
-import { getServerSession } from "../lib/serverSession";
-import makeSerializable from "../utils/makeSerializable";
+import TaskList from "components/tasks/TaskList";
+import client from "lib/prismadb";
+import { getServerSession } from "lib/serverSession";
+import makeSerializable from "utils/makeSerializable";
 
 export const revalidate = 60;
 

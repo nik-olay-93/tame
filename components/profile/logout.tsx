@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import BorderButton from "../ui/BorderButton";
+import BorderButton from "components/ui/BorderButton";
 
 export default function LogoutButton({ className }: { className?: string }) {
   return (

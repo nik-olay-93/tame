@@ -1,9 +1,8 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
-import LogoutButton from "../../components/profile/logout";
-import SignInForm from "../../components/profile/SignInForm";
-import BorderButton from "../../components/ui/BorderButton";
-import { getServerSession } from "../../lib/serverSession";
+import LogoutButton from "components/profile/logout";
+import SignInForm from "components/profile/SignInForm";
+import { getServerSession } from "lib/serverSession";
 
 async function getData() {
   const data = await getServerSession();

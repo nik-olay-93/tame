@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CustomIcon from "../ui/CustomIcon";
+import CustomIcon from "components/ui/CustomIcon";
 import TaskCard, { TaskObject } from "./TaskCard";
 
 export default function TaskList({

@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import useClickOutside from "../../../utils/onClickOutside";
+import useClickOutside from "utils/onClickOutside";
 
 export default function InputToggle({
   onDone,
