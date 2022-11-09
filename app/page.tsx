@@ -1,6 +1,7 @@
 import TaskList from "../components/tasks/TaskList";
 import client from "../lib/prismadb";
 import { getServerSession } from "../lib/serverSession";
+import makeSerializable from "../utils/makeSerializable";
 
 export const revalidate = 60;
 
@@ -22,6 +23,9 @@ async function getData() {
           project: true,
           tags: true,
         },
+        orderBy: {
+          createdAt: "asc",
+        },
       },
       issued_tasks: {
         include: {
@@ -29,6 +33,9 @@ async function getData() {
           issuer: true,
           project: true,
           tags: true,
+        },
+        orderBy: {
+          createdAt: "asc",
         },
       },
     },
@@ -56,12 +63,12 @@ export default async function Home() {
     <div className="flex flex-col gap-4 mt-4">
       <TaskList
         header="Assigned tasks"
-        tasks={data.assigned}
+        tasks={makeSerializable(data.assigned)}
         userId={data.user.id}
       />
       <TaskList
         header="Issued tasks"
-        tasks={data.issued}
+        tasks={makeSerializable(data.issued)}
         userId={data.user.id}
       />
     </div>

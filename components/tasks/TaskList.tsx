@@ -1,9 +1,8 @@
 "use client";
 
-import { Project, Tag, Task, User } from "@prisma/client";
 import { useState } from "react";
 import CustomIcon from "../ui/CustomIcon";
-import TaskCard from "./TaskCard";
+import TaskCard, { TaskObject } from "./TaskCard";
 
 export default function TaskList({
   header,
@@ -12,12 +11,7 @@ export default function TaskList({
   className,
 }: {
   header: string;
-  tasks: (Task & {
-    issuer: User;
-    assignee: User | null;
-    tags: Tag[];
-    project: Project;
-  })[];
+  tasks: TaskObject[];
   userId?: string;
   className?: string;
 }) {

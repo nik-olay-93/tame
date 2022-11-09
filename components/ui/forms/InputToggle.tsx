@@ -48,7 +48,7 @@ export default function InputToggle({
       ref={ref}
       className={`bg-background-light dark:bg-background-dark rounded-md border-none outline-none text-inherit ${className}`}
       onClick={onClick}
-      value={current}
+      defaultValue={value}
       onChange={change}
       {...props}
     />

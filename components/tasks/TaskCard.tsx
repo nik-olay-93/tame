@@ -1,20 +1,25 @@
 import { Project, Tag, Task, User } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { PlainObject } from "../../utils/plainTypes";
 import BorderButton from "../ui/BorderButton";
 import InputToggle from "../ui/forms/InputToggle";
+
+export type TaskObject = PlainObject<Task> & {
+  issuer: PlainObject<User>;
+  assignee: PlainObject<User> | null;
+  tags: PlainObject<Tag>[];
+  project: PlainObject<Project>;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export default function TaskCard({
   task,
   userId,
   className,
 }: {
-  task: Task & {
-    issuer: User;
-    assignee: User | null;
-    tags: Tag[];
-    project: Project;
-  };
+  task: TaskObject;
   userId?: string;
   className?: string;
 }) {
