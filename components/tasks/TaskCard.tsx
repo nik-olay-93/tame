@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { PlainObject } from "utils/plainTypes";
 import BorderButton from "components/ui/BorderButton";
 import InputToggle from "components/ui/forms/InputToggle";
+import TextAreaToggle from "components/ui/forms/TextAreaToggle";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
@@ -89,7 +90,33 @@ export default function TaskCard({
           )}
         </div>
       </div>
-      <div className="p-4 text-lg">{task.description}</div>
+      <div className="p-4 text-lg flex-grow">
+        {task.description ? (
+          <TextAreaToggle
+            value={task.description}
+            className="w-full"
+            onDone={(v) => {
+              fetch(`/api/task/${task.id}/changeDescription`, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  description: v,
+                }),
+              })
+                .then(() => {
+                  router.refresh();
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            }}
+          />
+        ) : (
+          <span className="italic">No description provided</span>
+        )}
+      </div>
       {task.tags.length > 0 && (
         <div className="flex flex-row flex-wrap gap-1 mx-2 px-2 mb-2">
           {task.tags.map((tag, i) => (
