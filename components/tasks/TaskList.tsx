@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { RefObject, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CustomIcon from "components/ui/CustomIcon";
 import TaskCard, { TaskObject } from "./TaskCard";
 
@@ -16,8 +17,14 @@ export default function TaskList({
   className?: string;
 }) {
   const [open, setOpen] = useState(true);
+
+  const parent = useAutoAnimate({});
+
   return (
-    <div className="flex flex-col gap-4 overflow-hidden">
+    <div
+      className="flex flex-col gap-4 overflow-hidden"
+      ref={parent as RefObject<HTMLDivElement>}
+    >
       <div
         className={`px-6 py-2 bg-primary-light dark:bg-primary-dark flex flex-row items-center`}
         onClick={() => setOpen(!open)}
