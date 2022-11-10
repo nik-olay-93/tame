@@ -4,7 +4,7 @@ import { RefObject, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CustomIcon from "components/ui/CustomIcon";
 import TaskCard, { TaskObject } from "./TaskCard";
-import Search from "components/ui/forms/Search";
+import Search from "components/ui/forms/Input";
 
 const searchFilter = (search: string) => (task: TaskObject) =>
   task.name.toLowerCase().includes(search.trim().toLowerCase()) ||

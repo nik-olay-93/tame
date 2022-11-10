@@ -1,3 +1,6 @@
+"use client";
+
+import { IconProps } from "@iconify/react";
 import CustomIcon from "../CustomIcon";
 
 export interface SearchProps {
@@ -5,6 +8,7 @@ export interface SearchProps {
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
+  icon?: IconProps;
 }
 
 export default function Search({
@@ -12,12 +16,16 @@ export default function Search({
   placeholder = "Search",
   value = "",
   onChange = () => {},
+  icon = {
+    icon: "fluent:search-20-regular",
+    fontSize: "30px",
+  },
 }: SearchProps) {
   return (
     <div
       className={`flex flex-row gap-2 rounded-md bg-primary-light dark:bg-primary-dark p-2 ${className}`}
     >
-      <CustomIcon icon="fluent:search-20-regular" fontSize="30px" />
+      <CustomIcon {...icon} />
       <input
         placeholder={placeholder}
         onChange={(e) => {
