@@ -8,6 +8,7 @@ import TextAreaToggle from "components/ui/forms/TextAreaToggle";
 import completeTask from "./api/complete";
 import renameTask from "./api/rename";
 import changeTaskDescription from "./api/changeDescription";
+import deleteTask from "./api/delete";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
@@ -144,6 +145,9 @@ export default function TaskCard({
                   fontSize: "20px",
                 }}
                 className="text-sm text-red-500 border-red-500"
+                onClick={() => {
+                  mutate(deleteTask(task.id));
+                }}
               />
             )}
           </div>
