@@ -9,6 +9,12 @@ import completeTask from "./api/complete";
 import renameTask from "./api/rename";
 import changeTaskDescription from "./api/changeDescription";
 import deleteTask from "./api/delete";
+import Link from "next/link";
+import mutate from "utils/mutate";
+import CardNameInput from "./CardNameInput";
+import CardDescInput from "./CardDescInput";
+import CardCompleteButton from "./CardCompleteButton";
+import CardDeleteButton from "./CardDeleteButton";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
@@ -28,24 +34,13 @@ export default function TaskCard({
   userId?: string;
   className?: string;
 }) {
-  const router = useRouter();
-
-  const mutate = (data: Promise<Response>) =>
-    data.then(() => router.refresh()).catch((e) => console.log(e));
-
   return (
     <div
       className={`flex flex-col bg-primary-light dark:bg-primary-dark rounded-md ${className}`}
     >
       <div className="px-4 py-2 flex flex-col">
         <span className="text-xl font-semibold">
-          <InputToggle
-            value={task.name}
-            onDone={(v) => {
-              mutate(renameTask(task.id, v));
-            }}
-            type={"text"}
-          />
+          <CardNameInput id={task.id} name={task.name} />
         </span>
         <span className="text-gray-400">{task.project.name}</span>
       </div>
@@ -85,13 +80,7 @@ export default function TaskCard({
       </div>
       <div className="p-4 text-lg flex-grow">
         {task.description ? (
-          <TextAreaToggle
-            value={task.description}
-            className="w-full"
-            onDone={(v) => {
-              mutate(changeTaskDescription(task.id, v));
-            }}
-          />
+          <CardDescInput id={task.id} description={task.description} />
         ) : (
           <span className="italic">No description provided</span>
         )}
@@ -111,15 +100,17 @@ export default function TaskCard({
       <div className="border-t mx-2 border-accent-light dark:border-accent-dark">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex flex-row gap-2 @container">
-            <BorderButton
-              icon={{
-                icon: "fluent:comment-multiple-20-regular",
-              }}
-            >
-              <span className="hidden @xs:block">Comment</span>
-            </BorderButton>
-            {(task.assignee?.id === userId || task.issuer.id === userId) && (
+            <Link href={`/task/${task.id}`} className="flex">
               <BorderButton
+                icon={{
+                  icon: "fluent:comment-multiple-20-regular",
+                }}
+              >
+                <span className="hidden @xs:block">Comment</span>
+              </BorderButton>
+            </Link>
+            {(task.assignee?.id === userId || task.issuer.id === userId) && (
+              <CardCompleteButton
                 icon={{
                   icon: "fluent:checkmark-20-regular",
                   fontSize: "20px",
@@ -129,25 +120,22 @@ export default function TaskCard({
                     ? "border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark"
                     : "bg-accent-light dark:bg-accent-dark border-gray-500 text-primary-light dark:text-primary-dark"
                 } ml-auto flex-1`}
-                onClick={() => {
-                  mutate(completeTask(task.id, !task.completed));
-                }}
+                id={task.id}
+                completed={task.completed}
               >
                 <span className="text-center flex-1">
                   {task.completed ? "Completed" : "Complete"}
                 </span>
-              </BorderButton>
+              </CardCompleteButton>
             )}
             {task.issuer.id === userId && (
-              <BorderButton
+              <CardDeleteButton
                 icon={{
                   icon: "fluent:delete-20-regular",
                   fontSize: "20px",
                 }}
                 className="text-sm text-red-500 border-red-500"
-                onClick={() => {
-                  mutate(deleteTask(task.id));
-                }}
+                id={task.id}
               />
             )}
           </div>
