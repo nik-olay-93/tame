@@ -47,7 +47,8 @@ async function getData() {
 
   return {
     user,
-    assigned: user.assigned_tasks,
+    assigned: user.assigned_tasks.filter((t) => !t.completed),
+    completed: user.assigned_tasks.filter((t) => t.completed),
     issued: user.issued_tasks,
   };
 }
@@ -69,6 +70,11 @@ export default async function Home() {
       <TaskList
         header="Issued tasks"
         tasks={makeSerializable(data.issued)}
+        userId={data.user.id}
+      />
+      <TaskList
+        header="Completed tasks"
+        tasks={makeSerializable(data.completed)}
         userId={data.user.id}
       />
     </div>

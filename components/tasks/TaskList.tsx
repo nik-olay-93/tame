@@ -1,6 +1,6 @@
 "use client";
 
-import { RefObject, useState } from "react";
+import { RefObject, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CustomIcon from "components/ui/CustomIcon";
 import TaskCard, { TaskObject } from "./TaskCard";
@@ -23,6 +23,10 @@ export default function TaskList({
 }) {
   const [open, setOpen] = useState(true);
   const [search, setSearch] = useState("");
+
+  const filteredTasks = useMemo(() => {
+    return tasks.filter(searchFilter(search));
+  }, [tasks, search]);
 
   const outer = useAutoAnimate({ duration: 200, easing: "ease-out" });
   const inner = useAutoAnimate({ duration: 200, easing: "ease-out" });
@@ -62,7 +66,12 @@ export default function TaskList({
             ref={inner as RefObject<HTMLDivElement>}
             className={`flex flex-col gap-4 mx-8`}
           >
-            {tasks.filter(searchFilter(search)).map((task, i) => (
+            {filteredTasks.length === 0 && (
+              <div className="text-center text-gray-500 dark:text-gray-400">
+                No tasks found
+              </div>
+            )}
+            {filteredTasks.map((task, i) => (
               <TaskCard key={i} task={task} userId={userId} />
             ))}
           </div>

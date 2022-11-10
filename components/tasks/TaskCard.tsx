@@ -5,6 +5,9 @@ import { PlainObject } from "utils/plainTypes";
 import BorderButton from "components/ui/BorderButton";
 import InputToggle from "components/ui/forms/InputToggle";
 import TextAreaToggle from "components/ui/forms/TextAreaToggle";
+import completeTask from "./api/complete";
+import renameTask from "./api/rename";
+import changeTaskDescription from "./api/changeDescription";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
@@ -26,6 +29,9 @@ export default function TaskCard({
 }) {
   const router = useRouter();
 
+  const mutate = (data: Promise<Response>) =>
+    data.then(() => router.refresh()).catch((e) => console.log(e));
+
   return (
     <div
       className={`flex flex-col bg-primary-light dark:bg-primary-dark rounded-md ${className}`}
@@ -35,21 +41,7 @@ export default function TaskCard({
           <InputToggle
             value={task.name}
             onDone={(v) => {
-              fetch(`/api/task/${task.id}/rename`, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  name: v,
-                }),
-              })
-                .then(() => {
-                  router.refresh();
-                })
-                .catch((e) => {
-                  console.log(e);
-                });
+              mutate(renameTask(task.id, v));
             }}
             type={"text"}
           />
@@ -96,21 +88,7 @@ export default function TaskCard({
             value={task.description}
             className="w-full"
             onDone={(v) => {
-              fetch(`/api/task/${task.id}/changeDescription`, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  description: v,
-                }),
-              })
-                .then(() => {
-                  router.refresh();
-                })
-                .catch((e) => {
-                  console.log(e);
-                });
+              mutate(changeTaskDescription(task.id, v));
             }}
           />
         ) : (
@@ -145,9 +123,18 @@ export default function TaskCard({
                   icon: "fluent:checkmark-20-regular",
                   fontSize: "20px",
                 }}
-                className="text-lg border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark ml-auto flex-1"
+                className={`text-lg ${
+                  !task.completed
+                    ? "border-accent-light dark:border-accent-dark text-accent-light dark:text-accent-dark"
+                    : "bg-accent-light dark:bg-accent-dark border-gray-500 text-primary-light dark:text-primary-dark"
+                } ml-auto flex-1`}
+                onClick={() => {
+                  mutate(completeTask(task.id, !task.completed));
+                }}
               >
-                <span className="text-center flex-1">Complete</span>
+                <span className="text-center flex-1">
+                  {task.completed ? "Completed" : "Complete"}
+                </span>
               </BorderButton>
             )}
             {task.issuer.id === userId && (

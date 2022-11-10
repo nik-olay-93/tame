@@ -1,12 +1,7 @@
 .ripple {
-  background-color: #ffffff00;
   background-position: center;
   transition: background 0.3s;
 }
-.ripple:hover {
-  background-color: #ffffff00;
-}
 .ripple:active {
   background-color: #ffffff1a;
-  background-size: 100%;
 }
