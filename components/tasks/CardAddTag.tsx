@@ -61,20 +61,21 @@ export default function CardAddTag({
     exec();
   }, [selected, projectId, router, id]);
 
-  const ref = useCallback((node: HTMLDivElement) => {
-    if (!node) return;
+  const ref = useCallback(
+    (node: HTMLDivElement) => {
+      if (!node) return;
 
-    const width = node.getBoundingClientRect().width;
-    const x = node.getBoundingClientRect().x;
+      const width = node.getBoundingClientRect().width;
+      const x = node.getBoundingClientRect().x;
 
-    console.log(x, width);
-
-    if (x + (right ? 2 * width : width) + 100 > window.innerWidth) {
-      setRight(true);
-    } else {
-      setRight(false);
-    }
-  }, []);
+      if (x + (right ? 2 * width : width) + 100 > window.innerWidth) {
+        setRight(true);
+      } else {
+        setRight(false);
+      }
+    },
+    [right]
+  );
 
   return (
     <Popover className="relative">
