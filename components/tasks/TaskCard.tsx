@@ -1,26 +1,22 @@
 import { Project, Tag, Task, User } from "@prisma/client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { PlainObject } from "utils/plainTypes";
 import BorderButton from "components/ui/BorderButton";
-import InputToggle from "components/ui/forms/InputToggle";
-import TextAreaToggle from "components/ui/forms/TextAreaToggle";
-import completeTask from "./api/complete";
-import renameTask from "./api/rename";
-import changeTaskDescription from "./api/changeDescription";
-import deleteTask from "./api/delete";
 import Link from "next/link";
-import mutate from "utils/mutate";
 import CardNameInput from "./CardNameInput";
 import CardDescInput from "./CardDescInput";
 import CardCompleteButton from "./CardCompleteButton";
 import CardDeleteButton from "./CardDeleteButton";
+import CustomIcon from "components/ui/CustomIcon";
+import CardAsigneeSelect from "./CardAsigneeSelect";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
   assignee: PlainObject<User> | null;
   tags: PlainObject<Tag>[];
-  project: PlainObject<Project>;
+  project: PlainObject<Project> & {
+    members: PlainObject<User>[];
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -60,21 +56,31 @@ export default function TaskCard({
         </div>
         <div className="flex flex-row items-center gap-2 text-gray-400">
           <span>Assigned To:</span>
-          {task.assignee ? (
+          {userId === task.issuer.id ? (
             <>
+              <CardAsigneeSelect
+                list={task.project.members}
+                taskId={task.id}
+                selected={task.assignee?.id}
+              />
+              <CustomIcon
+                className="text-white"
+                icon="fluent:edit-20-regular"
+              />
+            </>
+          ) : (
+            <div className="flex flex-row gap-2 items-center">
               <Image
-                src={task.assignee.image || "/pfp.jpg"}
-                alt={task.assignee.id}
+                src={task.assignee?.image || "/pfp.jpg"}
+                alt={task.assignee?.name || ""}
                 width={32}
                 height={32}
                 className="rounded-full"
               />
               <a className="text-accent-light dark:text-accent-dark">
-                {task.assignee.name}
+                {task.assignee?.name}
               </a>
-            </>
-          ) : (
-            <span>None</span>
+            </div>
           )}
         </div>
       </div>

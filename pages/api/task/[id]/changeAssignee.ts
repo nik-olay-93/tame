@@ -12,9 +12,12 @@ export default async function handler(
   }
 
   const { id } = req.query;
-  const { complete } = await req.body;
+  const { userId } = await req.body;
 
-  if (typeof id !== "string" || typeof complete !== "boolean") {
+  if (
+    typeof id !== "string" ||
+    (typeof userId !== "string" && typeof userId !== "undefined")
+  ) {
     res.status(400).json({ error: "Bad Request" });
     return;
   }
@@ -30,7 +33,6 @@ export default async function handler(
     where: { id },
     include: {
       issuer: true,
-      assignee: true,
     },
   });
 
@@ -39,17 +41,26 @@ export default async function handler(
     return;
   }
 
-  if (
-    task.issuer.email !== session.user.email &&
-    task.assignee?.email !== session.user.email
-  ) {
+  if (task.issuer.email !== session.user.email) {
     res.status(403).json({ error: "Forbidden" });
     return;
   }
 
   const resp = await client.task.update({
     where: { id },
-    data: { completed: complete },
+    data: userId
+      ? {
+          assignee: {
+            connect: {
+              id: userId,
+            },
+          },
+        }
+      : {
+          assignee: {
+            disconnect: true,
+          },
+        },
   });
 
   res.status(200).json(resp);

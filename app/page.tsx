@@ -20,7 +20,11 @@ async function getData() {
         include: {
           assignee: true,
           issuer: true,
-          project: true,
+          project: {
+            include: {
+              members: true,
+            },
+          },
           tags: true,
         },
         orderBy: {
@@ -31,7 +35,11 @@ async function getData() {
         include: {
           assignee: true,
           issuer: true,
-          project: true,
+          project: {
+            include: {
+              members: true,
+            },
+          },
           tags: true,
         },
         orderBy: {
