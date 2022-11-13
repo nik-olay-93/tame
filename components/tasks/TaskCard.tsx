@@ -9,13 +9,16 @@ import CardCompleteButton from "./CardCompleteButton";
 import CardDeleteButton from "./CardDeleteButton";
 import CustomIcon from "components/ui/CustomIcon";
 import CardAsigneeSelect from "./CardAsigneeSelect";
+import CardAddTag from "./CardAddTag";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
   assignee: PlainObject<User> | null;
   tags: PlainObject<Tag>[];
   project: PlainObject<Project> & {
+    administrators: PlainObject<User>[];
     members: PlainObject<User>[];
+    tags: PlainObject<Tag>[];
   };
   createdAt: string;
   updatedAt: string;
@@ -93,14 +96,26 @@ export default function TaskCard({
       </div>
       {task.tags.length > 0 && (
         <div className="flex flex-row flex-wrap gap-1 mx-2 px-2 mb-2">
-          {task.tags.map((tag, i) => (
+          {task.tags.map((tag) => (
             <div
-              key={i}
+              key={tag.id}
               className="text-sm px-2 py-1 text-gray-400 bg-primary-light dark:bg-[#424242] rounded-full"
             >
               {tag.name}
             </div>
           ))}
+          {userId === task.issuer.id && (
+            <CardAddTag
+              id={task.id}
+              projectId={task.project.id}
+              canCreate={task.project.administrators.some(
+                (admin) => admin.id === userId
+              )}
+              tags={task.project.tags.filter(
+                (t) => task.tags.findIndex((v) => v.name === t.name) === -1
+              )}
+            />
+          )}
         </div>
       )}
       <div className="border-t mx-2 border-accent-light dark:border-accent-dark">

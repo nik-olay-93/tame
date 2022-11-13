@@ -22,7 +22,9 @@ async function getData() {
           issuer: true,
           project: {
             include: {
+              administrators: true,
               members: true,
+              tags: true,
             },
           },
           tags: true,
@@ -37,7 +39,9 @@ async function getData() {
           issuer: true,
           project: {
             include: {
+              administrators: true,
               members: true,
+              tags: true,
             },
           },
           tags: true,
