@@ -1,6 +1,6 @@
-import { Listbox, Transition } from "@headlessui/react";
+"use client";
+
 import { Project, Tag } from "@prisma/client";
-import CustomIcon from "components/ui/CustomIcon";
 import CustomListbox from "components/ui/Listbox";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { PlainObject } from "utils/plainTypes";

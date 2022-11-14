@@ -4,7 +4,6 @@ import CustomIcon from "components/ui/CustomIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { PlainObject } from "utils/plainTypes";
-import removeTaskTag from "./api/removeTag";
 import CardAddTag from "./CardAddTag";
 import CardAsigneeSelect from "./CardAsigneeSelect";
 import CardCompleteButton from "./CardCompleteButton";

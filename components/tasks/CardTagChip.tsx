@@ -1,3 +1,5 @@
+"use client";
+
 import { Tag } from "@prisma/client";
 import CustomIcon from "components/ui/CustomIcon";
 import { useRouter } from "next/navigation";

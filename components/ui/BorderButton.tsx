@@ -1,3 +1,5 @@
+"use client";
+
 import { IconProps } from "@iconify/react";
 import CustomIcon from "./CustomIcon";
 import styles from "./BorderButton.module.css";

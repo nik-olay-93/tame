@@ -91,8 +91,8 @@ export default function TaskList({
                 No tasks found
               </div>
             )}
-            {filteredTasks.map((task, i) => (
-              <TaskCard key={i} task={task} userId={userId} />
+            {filteredTasks.map((task) => (
+              <TaskCard key={task.id} task={task} userId={userId} />
             ))}
           </div>
         </>

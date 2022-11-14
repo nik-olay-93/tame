@@ -1,8 +1,5 @@
 import NewComment from "components/tasks/NewCommentBar";
 import TaskCard from "components/tasks/TaskCard";
-import Animated from "components/ui/animated";
-import CustomIcon from "components/ui/CustomIcon";
-import Search from "components/ui/forms/Input";
 import client from "lib/prismadb";
 import { getServerSession } from "lib/serverSession";
 import Image from "next/image";
@@ -27,6 +24,8 @@ async function getData(id: string) {
       project: {
         include: {
           members: true,
+          administrators: true,
+          tags: true,
         },
       },
       tags: true,
