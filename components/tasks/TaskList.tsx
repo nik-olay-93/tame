@@ -5,6 +5,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CustomIcon from "components/ui/CustomIcon";
 import TaskCard, { TaskObject } from "./TaskCard";
 import Search from "components/ui/forms/Input";
+import TaskFilter from "./TaskFilter";
+import { PlainObject } from "utils/plainTypes";
 
 const searchFilter = (search: string) => (task: TaskObject) =>
   task.name.toLowerCase().includes(search.trim().toLowerCase()) ||
@@ -24,16 +26,21 @@ export default function TaskList({
   const [open, setOpen] = useState(true);
   const [search, setSearch] = useState("");
 
+  const [filter, setFilter] = useState<(p: TaskObject) => boolean>(
+    () => (p: TaskObject) => true
+  );
+  const [filterOpen, setFilterOpen] = useState(false);
+
   const filteredTasks = useMemo(() => {
-    return tasks.filter(searchFilter(search));
-  }, [tasks, search]);
+    return tasks.filter(searchFilter(search)).filter(filter);
+  }, [tasks, search, filter]);
 
   const outer = useAutoAnimate({ duration: 200, easing: "ease-out" });
   const inner = useAutoAnimate({ duration: 200, easing: "ease-out" });
 
   return (
     <div
-      className={`flex flex-col gap-4 overflow-hidden ${className}`}
+      className={`flex flex-col gap-4 ${className}`}
       ref={outer as RefObject<HTMLDivElement>}
     >
       <div
@@ -58,10 +65,23 @@ export default function TaskList({
               value={search}
               onChange={(v) => setSearch(v)}
             />
-            <div className="p-2 rounded-md ml-2 bg-accent-light dark:bg-accent-dark">
+            <div
+              className="p-2 rounded-md ml-2 bg-accent-light dark:bg-accent-dark"
+              onClick={() => setFilterOpen((v) => !v)}
+            >
               <CustomIcon icon="fluent:options-20-regular" fontSize="30px" />
             </div>
           </div>
+          {filterOpen && (
+            <div className="mx-8">
+              <TaskFilter
+                projects={tasks
+                  .map((t) => t.project)
+                  .filter((p, i, a) => a.findIndex((v) => v.id === p.id) === i)}
+                setFilter={setFilter}
+              />
+            </div>
+          )}
           <div
             ref={inner as RefObject<HTMLDivElement>}
             className={`flex flex-col gap-4 mx-8`}
