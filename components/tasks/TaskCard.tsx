@@ -1,15 +1,17 @@
 import { Project, Tag, Task, User } from "@prisma/client";
-import Image from "next/image";
-import { PlainObject } from "utils/plainTypes";
 import BorderButton from "components/ui/BorderButton";
+import CustomIcon from "components/ui/CustomIcon";
+import Image from "next/image";
 import Link from "next/link";
-import CardNameInput from "./CardNameInput";
-import CardDescInput from "./CardDescInput";
+import { PlainObject } from "utils/plainTypes";
+import removeTaskTag from "./api/removeTag";
+import CardAddTag from "./CardAddTag";
+import CardAsigneeSelect from "./CardAsigneeSelect";
 import CardCompleteButton from "./CardCompleteButton";
 import CardDeleteButton from "./CardDeleteButton";
-import CustomIcon from "components/ui/CustomIcon";
-import CardAsigneeSelect from "./CardAsigneeSelect";
-import CardAddTag from "./CardAddTag";
+import CardDescInput from "./CardDescInput";
+import CardNameInput from "./CardNameInput";
+import CardTagChip from "./CardTagChip";
 
 export type TaskObject = PlainObject<Task> & {
   issuer: PlainObject<User>;
@@ -33,6 +35,10 @@ export default function TaskCard({
   userId?: string;
   className?: string;
 }) {
+  const isIssuer = task.issuer.id === userId;
+  const isAssignee = task.assignee?.id === userId;
+  const isAdmin = task.project.administrators.some((m) => m.id === userId);
+
   return (
     <div
       className={`flex flex-col bg-primary-light dark:bg-primary-dark rounded-md ${className}`}
@@ -59,7 +65,7 @@ export default function TaskCard({
         </div>
         <div className="flex flex-row items-center gap-2 text-gray-400">
           <span>Assigned To:</span>
-          {userId === task.issuer.id ? (
+          {isIssuer ? (
             <>
               <CardAsigneeSelect
                 list={task.project.members}
@@ -94,30 +100,26 @@ export default function TaskCard({
           <span className="italic">No description provided</span>
         )}
       </div>
-      {task.tags.length > 0 && (
-        <div className="flex flex-row flex-wrap gap-1 mx-2 px-2 mb-2">
-          {task.tags.map((tag) => (
-            <div
-              key={tag.id}
-              className="text-sm px-2 py-1 text-gray-400 bg-primary-light dark:bg-[#424242] rounded-full"
-            >
-              {tag.name}
-            </div>
-          ))}
-          {userId === task.issuer.id && (
-            <CardAddTag
-              id={task.id}
-              projectId={task.project.id}
-              canCreate={task.project.administrators.some(
-                (admin) => admin.id === userId
-              )}
-              tags={task.project.tags.filter(
-                (t) => task.tags.findIndex((v) => v.name === t.name) === -1
-              )}
-            />
-          )}
-        </div>
-      )}
+      <div className="flex flex-row flex-wrap gap-1 mx-2 px-2 mb-2">
+        {task.tags.map((tag) => (
+          <CardTagChip
+            key={tag.id}
+            tag={tag}
+            taskId={task.id}
+            isIssuer={isIssuer}
+          />
+        ))}
+        {isIssuer && (
+          <CardAddTag
+            id={task.id}
+            projectId={task.project.id}
+            canCreate={isAdmin}
+            tags={task.project.tags.filter(
+              (t) => task.tags.findIndex((v) => v.name === t.name) === -1
+            )}
+          />
+        )}
+      </div>
       <div className="border-t mx-2 border-accent-light dark:border-accent-dark">
         <div className="flex flex-col gap-2 p-2">
           <div className="flex flex-row gap-2 @container">
@@ -130,7 +132,7 @@ export default function TaskCard({
                 <span className="hidden @xs:block">Comment</span>
               </BorderButton>
             </Link>
-            {(task.assignee?.id === userId || task.issuer.id === userId) && (
+            {(isIssuer || isAssignee) && (
               <CardCompleteButton
                 icon={{
                   icon: "fluent:checkmark-20-regular",
@@ -149,7 +151,7 @@ export default function TaskCard({
                 </span>
               </CardCompleteButton>
             )}
-            {task.issuer.id === userId && (
+            {isIssuer && (
               <CardDeleteButton
                 icon={{
                   icon: "fluent:delete-20-regular",

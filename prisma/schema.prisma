@@ -114,7 +114,7 @@ model Tag {
 model Comment {
   id        String   @id @default(cuid())
   text      String
-  task      Task     @relation(fields: [taskId], references: [id])
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId    String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
