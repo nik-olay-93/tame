@@ -27,18 +27,15 @@ export default function CardAsigneeSelect({
 
   const router = useRouter();
 
-  useEffect(() => {
-    const changeUser = async () => {
-      await changeTaskAssignee(taskId, selectedUser?.id);
-      router.refresh();
-    };
-
-    changeUser();
-  }, [selectedUser, router, taskId]);
+  const changeUser = async (user: PlainObject<User> | null) => {
+    await changeTaskAssignee(taskId, user?.id);
+    setSelectedUser(user);
+    router.refresh();
+  };
 
   return (
     <div className="relative flex flex-col items-center">
-      <Listbox value={selectedUser} onChange={setSelectedUser}>
+      <Listbox value={selectedUser} onChange={changeUser}>
         <Listbox.Button>
           {selectedUser ? (
             <div className="flex flex-row gap-2 items-center">
@@ -66,7 +63,7 @@ export default function CardAsigneeSelect({
             </div>
           )}
         </Listbox.Button>
-        <Listbox.Options className="mt-1 p-2 border border-gray-500 absolute flex flex-col items-center gap-2 top-full left-0 w-max bg-primary-light dark:bg-primary-dark rounded-md">
+        <Listbox.Options className="mt-1 p-2 border border-gray-500 absolute z-10 flex flex-col items-start gap-2 top-full left-0 w-max bg-primary-light dark:bg-primary-dark rounded-md">
           {selectedUser !== null && (
             <Listbox.Option
               value={null}
