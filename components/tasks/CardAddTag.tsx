@@ -68,7 +68,7 @@ export default function CardAddTag({
       const width = node.getBoundingClientRect().width;
       const x = node.getBoundingClientRect().x;
 
-      if (x + (right ? 2 * width : width) + 100 > window.innerWidth) {
+      if (x + (right ? 2 * width : width) > window.innerWidth) {
         setRight(true);
       } else {
         setRight(false);
