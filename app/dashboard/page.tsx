@@ -1,3 +1,4 @@
+import ProjectCard from "components/dashboard/ProjectCard";
 import client from "lib/prismadb";
 import { getServerSession } from "lib/serverSession";
 
@@ -15,6 +16,20 @@ async function getData() {
         },
       },
     },
+    include: {
+      members: {
+        select: {
+          name: true,
+          id: true,
+          image: true,
+        },
+      },
+      tasks: {
+        select: {
+          completed: true,
+        },
+      },
+    },
   });
 
   return projects;
@@ -24,12 +39,9 @@ export default async function DashboardPage() {
   const data = await getData();
 
   return (
-    <div>
+    <div className="flex flex-col gap-4 px-8 mt-4">
       {data?.map((project) => (
-        <div key={project.id}>
-          <h1>{project.name}</h1>
-          <p>{project.description}</p>
-        </div>
+        <ProjectCard project={project} key={project.id} />
       ))}
     </div>
   );
