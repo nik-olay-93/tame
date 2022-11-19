@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className="flex flex-col gap-2 mx-8">
         {data.task.comments.map((comment, i) => (
           <div
-            key={i}
+            key={comment.id}
             className={`flex ${
               comment.authorId === data.user?.id
                 ? "flex-row-reverse"

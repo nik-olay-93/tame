@@ -67,6 +67,7 @@ export default function TaskCard({
           {isIssuer ? (
             <>
               <CardAsigneeSelect
+                key={task.assigneeId}
                 list={task.project.members}
                 taskId={task.id}
                 selected={task.assignee?.id}
