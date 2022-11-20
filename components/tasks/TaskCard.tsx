@@ -9,6 +9,7 @@ import CardAsigneeSelect from "./CardAsigneeSelect";
 import CardCompleteButton from "./CardCompleteButton";
 import CardDeleteButton from "./CardDeleteButton";
 import CardDescInput from "./CardDescInput";
+import CardHideButton from "./CardHideButton";
 import CardNameInput from "./CardNameInput";
 import CardTagChip from "./CardTagChip";
 
@@ -150,6 +151,16 @@ export default function TaskCard({
                   {task.completed ? "Completed" : "Complete"}
                 </span>
               </CardCompleteButton>
+            )}
+            {task.completed && isIssuer && (
+              <CardHideButton
+                icon={{
+                  icon: "fluent:eye-off-20-regular",
+                  fontSize: "20px",
+                }}
+                className="text-sm text-gray-400 border-gray-400"
+                id={task.id}
+              />
             )}
             {isIssuer && (
               <CardDeleteButton

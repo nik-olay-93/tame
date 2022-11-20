@@ -17,6 +17,9 @@ async function getData() {
     },
     include: {
       assigned_tasks: {
+        where: {
+          hidden: false,
+        },
         include: {
           assignee: true,
           issuer: true,
@@ -34,6 +37,9 @@ async function getData() {
         },
       },
       issued_tasks: {
+        where: {
+          hidden: false,
+        },
         include: {
           assignee: true,
           issuer: true,
