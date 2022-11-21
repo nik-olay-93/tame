@@ -13,6 +13,22 @@ export interface TaskFilterProps {
   setFilter: Dispatch<SetStateAction<(p: TaskObject) => boolean>>;
 }
 
+/**
+ * ### Description
+ *
+ * Filter for tasks
+ *
+ * ### Props
+ *
+ * - `projects` - The projects
+ * - `setFilter` - The filter setter
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <TaskFilter projects={projects} setFilter={setFilter} />
+ * ```
+ */
 export default function TaskFilter({
   projects = [],
   setFilter = () => {},

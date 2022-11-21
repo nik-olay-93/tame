@@ -1,17 +1,10 @@
 "use client";
 
-import { Combobox, Popover, RadioGroup, Transition } from "@headlessui/react";
-import { Tag, Task } from "@prisma/client";
+import { Combobox, Popover, Transition } from "@headlessui/react";
+import { Tag } from "@prisma/client";
 import CustomIcon from "components/ui/CustomIcon";
-import CustomModal from "components/ui/Modal";
 import { useRouter } from "next/navigation";
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { PlainObject } from "utils/plainTypes";
 import addTaskTag from "./api/addTag";
 import createTag from "./api/createTag";
@@ -23,6 +16,24 @@ export interface CardAddTagProps extends React.HTMLAttributes<HTMLDivElement> {
   canCreate?: boolean;
 }
 
+/**
+ * ### Description
+ * Tag input popover for adding tags to a task
+ *
+ * ### Props
+ *
+ * - `id` - The id of the task
+ * - `tags` - The tags of the task
+ * - `projectId` - The id of the project
+ * - `canCreate` - Whether the user can create tags
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardAddTag id={id} tags={tags} projectId={projectId} canCreate={canCreate} />
+ * ```
+ *
+ */
 export default function CardAddTag({
   id,
   projectId,

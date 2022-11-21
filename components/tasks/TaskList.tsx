@@ -1,17 +1,48 @@
 "use client";
 
-import { RefObject, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import CustomIcon from "components/ui/CustomIcon";
-import TaskCard, { TaskObject } from "./TaskCard";
 import Search from "components/ui/forms/Input";
+import { RefObject, useMemo, useState } from "react";
+import TaskCard, { TaskObject } from "./TaskCard";
 import TaskFilter from "./TaskFilter";
-import { PlainObject } from "utils/plainTypes";
 
+/**
+ * ### Description
+ *
+ * Generates a predicate for filtering tasks
+ *
+ * ### Props
+ *
+ * - `search` - The search input
+ *
+ * ### Usage
+ *
+ * ```ts
+ * searchFilter("search term")(task)
+ * ```
+ */
 const searchFilter = (search: string) => (task: TaskObject) =>
   task.name.toLowerCase().includes(search.trim().toLowerCase()) ||
   task.description?.toLowerCase().includes(search.trim().toLowerCase());
 
+/**
+ * ### Description
+ *
+ * The task list
+ *
+ * ### Props
+ *
+ * - `tasks` - The tasks
+ * - `header` - The header
+ * - `userId` - The id of the user
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <TaskList tasks={tasks} header={header} userId={userId} />
+ * ```
+ */
 export default function TaskList({
   header,
   tasks,

@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import mutate from "utils/mutate";
 import changeTaskDescription from "./api/changeDescription";
 
+/**
+ * ### Description
+ *
+ * Input for changing the description of a task
+ *
+ * ### Props
+ *
+ * - `id` - The id of the task
+ * - `description` - The description of the task
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardDescInput id={id} description={description} />
+ * ```
+ */
 export default function CardDescInput({
   id,
   description,

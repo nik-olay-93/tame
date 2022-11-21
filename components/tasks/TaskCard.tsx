@@ -26,6 +26,22 @@ export type TaskObject = PlainObject<Task> & {
   updatedAt: string;
 };
 
+/**
+ * ### Description
+ *
+ * Card for displaying a task
+ *
+ * ### Props
+ *
+ * - `task` - The task to display
+ * - `userId` - The id of the user
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <TaskCard task={task} userId={userId} />
+ * ```
+ */
 export default function TaskCard({
   task,
   userId,

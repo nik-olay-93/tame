@@ -12,6 +12,23 @@ export interface CardAddTagProps {
   isIssuer: boolean;
 }
 
+/**
+ * ### Description
+ *
+ * Simple tag chip for displaying and removing tags from a task
+ *
+ * ### Props
+ *
+ * - `taskId` - The id of the task
+ * - `tag` - The tag
+ * - `isIssuer` - Whether the user can create tags
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardAddChip taskId={id} tag={tag} isIssuer={canCreate} />
+ * ```
+ */
 export default function CardTagChip({
   taskId,
   tag,

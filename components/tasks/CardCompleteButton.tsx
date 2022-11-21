@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import mutate from "utils/mutate";
 import completeTask from "./api/complete";
 
+/**
+ * ### Description
+ *
+ * Button for completing a task
+ *
+ * ### Props
+ *
+ * - `id` - The id of the task
+ * - `completed` - Whether the task is completed
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardCompleteButton id={id} completed={completed} />
+ * ```
+ */
 export default function CardCompleteButton({
   id,
   completed,

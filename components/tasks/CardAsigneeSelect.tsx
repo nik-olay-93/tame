@@ -1,12 +1,12 @@
 "use client";
 
-import { User } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { PlainObject } from "utils/plainTypes";
 import { Listbox } from "@headlessui/react";
+import { User } from "@prisma/client";
 import Image from "next/image";
-import changeTaskAssignee from "./api/changeAssignee";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { PlainObject } from "utils/plainTypes";
+import changeTaskAssignee from "./api/changeAssignee";
 
 export interface CardAsigneeSelectProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,6 +15,23 @@ export interface CardAsigneeSelectProps
   taskId: string;
 }
 
+/**
+ * ### Description
+ *
+ * Assignee select popover for changing the assignee of a task
+ *
+ * ### Props
+ *
+ * - `selected` - The id of the selected user
+ * - `list` - The list of users
+ * - `taskId` - The id of the task
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardAsigneeSelect selected={selected} list={list} taskId={taskId} />
+ * ```
+ */
 export default function CardAsigneeSelect({
   selected,
   list,

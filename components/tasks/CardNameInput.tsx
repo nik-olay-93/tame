@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import mutate from "utils/mutate";
 import renameTask from "./api/rename";
 
+/**
+ * ### Description
+ *
+ * Input for changing the name of a task
+ *
+ * ### Props
+ *
+ * - `id` - The id of the task
+ * - `name` - The name of the task
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <CardNameInput id={id} name={name} />
+ * ```
+ */
 export default function CardNameInput({
   name,
   id,

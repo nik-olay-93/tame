@@ -12,6 +12,21 @@ export interface NewCommentProps {
   className?: string;
 }
 
+/**
+ * ### Description
+ *
+ * Input for creating a new comment
+ *
+ * ### Props
+ *
+ * - `taskId` - The id of the task
+ *
+ * ### Usage
+ *
+ * ```tsx
+ * <NewComment taskId={id} />
+ * ```
+ */
 export default function NewComment({ className, taskId }: NewCommentProps) {
   const [text, setText] = useState("");
 
