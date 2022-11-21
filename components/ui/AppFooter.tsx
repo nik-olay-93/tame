@@ -13,7 +13,7 @@ const routes = [
   },
   {
     title: "Dashboard",
-    icon: "fluent:data-treemap-20-regular",
+    icon: "fluent:apps-20-regular",
     path: "/dashboard",
   },
   {

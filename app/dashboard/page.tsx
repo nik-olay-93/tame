@@ -39,10 +39,15 @@ export default async function DashboardPage() {
   const data = await getData();
 
   return (
-    <div className="flex flex-col gap-4 px-8 mt-4">
-      {data?.map((project) => (
-        <ProjectCard project={project} key={project.id} />
-      ))}
-    </div>
+    <>
+      <div className="bg-primary-light dark:bg-primary-dark text-2xl font-bold px-6 py-2 mt-4">
+        Your Projects
+      </div>
+      <div className="flex flex-col gap-4 px-8 mt-4">
+        {data?.map((project) => (
+          <ProjectCard project={project} key={project.id} />
+        ))}
+      </div>
+    </>
   );
 }
