@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import BorderButton from "components/ui/BorderButton";
 
-export default function SignInForm({ csrfToken }: { csrfToken: string }) {
+export default function SignInForm({ csrfToken }: { csrfToken?: string }) {
   const [error, setError] = useState<string>();
 
   const onSubmit = async (ev: FormEvent) => {

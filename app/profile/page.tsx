@@ -51,7 +51,7 @@ export default async function ProfilePage() {
         </>
       ) : (
         <div className="m-auto">
-          {csrfToken?.value && <SignInForm csrfToken={csrfToken.value} />}
+          <SignInForm csrfToken={csrfToken?.value} />
         </div>
       )}
     </div>
