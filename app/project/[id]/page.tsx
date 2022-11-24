@@ -4,6 +4,8 @@ import { getServerSession } from "lib/serverSession";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import CustomIcon from "components/ui/CustomIcon";
+import CollapseList from "components/ui/CollapseList";
+import Link from "next/link";
 
 async function getData(id: string) {
   const session = await getServerSession();
@@ -55,10 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className="text-2xl font-semibold">{project.name}</div>
         <div className="text-xl">{project.description}</div>
       </div>
-      <div className="bg-primary-light dark:bg-primary-dark rounded-md mx-4 flex flex-col gap-4 items-stretch pb-2">
-        <span className="text-xl border-gray-500 border rounded-md px-4 py-2">
-          Members
-        </span>
+      <CollapseList title="Members">
         {project.members.map((m) => (
           <div key={m.id} className="flex flex-row items-center gap-2 px-4">
             <div className="flex flex-row items-center gap-2">
@@ -75,7 +74,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               <BorderButton
                 icon={{
                   icon: "fluent:person-delete-20-regular",
-                  fontSize: "2rem",
+                  fontSize: "1.5rem",
                 }}
                 className="text-red-400 border-red-400 ml-auto"
               >
@@ -87,22 +86,45 @@ export default async function Page({ params }: { params: { id: string } }) {
         {isAdmin && (
           <BorderButton
             icon={{ icon: "fluent:person-add-20-regular", fontSize: "2rem" }}
-            className="border-accent-light text-accent-light ml-auto mr-4"
+            className="border-accent-light text-accent-light ml-auto mr-4 mb-2"
           >
             Add members
           </BorderButton>
         )}
-      </div>
-      <div className="bg-primary-light dark:bg-primary-dark rounded-md px-4 py-2 mx-4 border-gray-500 border flex flex-row gap-2 items-center">
-        <div className="text-xl font-semibold">Tasks</div>
-        <span className="text-lg ml-auto">
-          {project.tasks.filter((t) => !t.completed).length} Open
-        </span>
-        <CustomIcon
-          icon={"fluent:chevron-circle-right-20-regular"}
-          fontSize="2rem"
-        />
-      </div>
+      </CollapseList>
+      <CollapseList
+        title={`Tasks (${
+          project.tasks.filter((t) => !t.completed).length
+        } open)`}
+      >
+        {project.tasks
+          .filter((t) => !t.completed)
+          .map((t) => (
+            <div
+              key={t.id}
+              className="flex flex-row items-center gap-2 px-4 pb-2"
+            >
+              <div className="flex flex-row items-center gap-2">
+                <CustomIcon
+                  icon={"fluent:circle-20-regular"}
+                  fontSize="1.5rem"
+                />
+                <div className="text-lg">{t.name}</div>
+              </div>
+              <Link href={`/task/${t.id}`} className="ml-auto">
+                <BorderButton
+                  icon={{
+                    icon: "fluent:info-20-regular",
+                    fontSize: "1.75rem",
+                  }}
+                  className="text-accent-dark border-accent-dark"
+                >
+                  Info
+                </BorderButton>
+              </Link>
+            </div>
+          ))}
+      </CollapseList>
     </div>
   );
 }
